@@ -1,5 +1,3 @@
-# JD on fire
+# MEAN stack project
 
-this is my MEAN stack project 
-
-Backend with javascript
+E-Commerce web site

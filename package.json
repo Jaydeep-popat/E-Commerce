@@ -1,15 +1,11 @@
 {
-  "name": "e-commerce_backend",
+  "name": "backend",
   "version": "1.0.0",
-  "description": "this is the backend folder for the MEAN project",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "Jaydeep_Popat",
-    "BackEnd"
-  ],
-  "author": "jaydeep",
-  "license": "ISC"
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
