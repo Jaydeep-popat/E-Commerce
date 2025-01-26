@@ -4,20 +4,20 @@ import bcrypt from 'bcrypt';
 
 
 // Define the User schema
-const userSchema = new mongoose.Schema(
+const userSchema = new Mongoose.Schema(
   {
+    fullName: {
+      type: String,
+      required: true,
+      trim: true,
+      index: true
+    },
     username: {
       type: String,
       required: true,
       trim: true,
       lowercase: true,
       unique: true
-    },
-    fullName: {
-      type: String,
-      required: true,
-      trim: true,
-      index: true
     },
     email: {
       type: String,
@@ -49,7 +49,7 @@ const userSchema = new mongoose.Schema(
 userSchema.pre("save", async function(next) {
   
   if(!this.isModified("password")) return next();
-  this.password = bcrypt.hash(this.password,10)
+  this.password =  await bcrypt.hash(this.password,10)
   next();
 })
 
@@ -82,9 +82,6 @@ userSchema.methods.generateRefreshToken = async function(){
       });
 }
 
-
-
-
-
 // Export the model
-module.exports = mongoose.model('User', userSchema);
+
+export const User = Mongoose.model("User", userSchema)
