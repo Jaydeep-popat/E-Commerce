@@ -11,9 +11,6 @@ connectDB()
     app.listen(process.env.PORT,()=>{
     console.log("surver is running on port",process.env.PORT); 
 })
-
-
-
 })
 .catch((err)=>{
     console.log("mongo not connected", err)

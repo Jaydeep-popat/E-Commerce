@@ -1,7 +1,9 @@
-const mongoose = require('mongoose');
+import  Mongoose  from 'mongoose';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 
 // Define the Product schema
-const productSchema = new mongoose.Schema(
+const productSchema = new Mongoose.Schema(
   {
     name: {
       type: String,
@@ -11,7 +13,7 @@ const productSchema = new mongoose.Schema(
     },
     description: {
       type: String,
-      trim: true,
+      trim: true
     },
     price: {
       type: Number,
@@ -20,16 +22,16 @@ const productSchema = new mongoose.Schema(
       min: 0, // Price can't be negative
     },
     owner: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Mongoose.Schema.Types.ObjectId,
         ref: 'User', // References the User model (the user who uploaded the product)
         required: true,
     },
     category: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Mongoose.Schema.Types.ObjectId,
         ref: 'Category', // References the Category model
         required: true,
     },
-    stock: {
+    stock:{
       type: Number,
       required: true,
       min: 0, // Stock can't be negative
@@ -49,4 +51,4 @@ const productSchema = new mongoose.Schema(
 ); 
 
 // Export the model
-module.exports = mongoose.model('Product', productSchema);
+export const Product = Mongoose.model("Product",productSchema);

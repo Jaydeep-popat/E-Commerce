@@ -1,17 +1,17 @@
-const mongoose = require('mongoose');
+import  Mongoose  from 'mongoose';
 
 // Define the Order schema
-const orderSchema = new mongoose.Schema(
+const orderSchema = new Mongoose.Schema(
   {
     user: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Mongoose.Schema.Types.ObjectId,
       ref: 'User', // References the User model (who placed the order)
       required: true,
     },
     products: [
       {
-        product: {
-          type: mongoose.Schema.Types.ObjectId,
+        productId: {
+          type: Mongoose.Schema.Types.ObjectId,
           ref: 'Product', // References the Product model
           required: true,
         },
@@ -55,4 +55,4 @@ const orderSchema = new mongoose.Schema(
 );
 
 // Export the model
-module.exports = mongoose.model('Order', orderSchema);
+module.exports = Mongoose.model('Order', orderSchema);

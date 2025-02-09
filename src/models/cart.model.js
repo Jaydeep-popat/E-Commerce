@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
+import  Mongoose  from 'mongoose';
 
 // Define the Cart schema
-const cartSchema = new mongoose.Schema(
+const cartSchema = new Mongoose.Schema(
   {
     user: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Mongoose.Schema.Types.ObjectId,
       ref: 'User', // References the User model (who owns the cart)
       required: true,
       unique: true, // A user can only have one cart
@@ -12,14 +12,15 @@ const cartSchema = new mongoose.Schema(
     products: [
       {
         product: {
-          type: mongoose.Schema.Types.ObjectId,
+          type: Mongoose.Schema.Types.ObjectId,
           ref: 'Product', // References the Product model
           required: true,
         },
         quantity: {
           type: Number,
           required: true,
-          min: 1, // Ensures at least 1 item is added to the cart
+          min: 1,
+          max:10
         },
       },
     ],
@@ -37,4 +38,4 @@ const cartSchema = new mongoose.Schema(
 );
 
 // Export the model
-module.exports = mongoose.model('Cart', cartSchema);
+module.exports = Mongoose.model('Cart', cartSchema);

@@ -1,15 +1,14 @@
-const mongoose = require('mongoose');
-
+import  Mongoose  from 'mongoose';
 // Define the Review schema
-const reviewSchema = new mongoose.Schema(
+const reviewSchema = new Mongoose.Schema(
   {
     product: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Mongoose.Schema.Types.ObjectId,
       ref: 'Product', // References the Product model
       required: true,
     },
     user: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Mongoose.Schema.Types.ObjectId,
       ref: 'User', // References the User model (who left the review)
       required: true,
     },
@@ -32,4 +31,4 @@ const reviewSchema = new mongoose.Schema(
 );
 
 // Export the model
-module.exports = mongoose.model('Review', reviewSchema);
+module.exports = Mongoose.model('Review', reviewSchema);
