@@ -45,6 +45,18 @@ const addCategory = asyncHandler(async (req,res)=>{
     return res.status(201).json(new apiResponse(200, createdCategory,"category registered successfully"));
 });
 
+const updateCategory = asyncHandler(async (req,res) => {
+   
+    const{name, description}= req.body;
+
+    if ([name, description].some((field) => field?.trim() === "")) {
+        throw new ApiError(400, "All fields must be filled correctly.");
+    }
+    
+    let imageUrl = existedProduct.images;
+
+});
+
 export {
     addCategory
 }

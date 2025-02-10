@@ -8,14 +8,12 @@ import {
     changeCurrentPassword,
     getCurrentUser,
     refreshAccessToken
-
-    }   from '../controllers/user.controller.js'
+    }from '../controllers/user.controller.js'
     
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 
 
 const router = new Router();
-
 
 router.route("/register").post(registerUser);
 router.route("/login").post(loginUser);

@@ -21,10 +21,11 @@ const reviewSchema = new Mongoose.Schema(
     comment: {
       type: String,
       trim: true,
+      max: 255
     },
     createdAt: {
       type: Date,
-      default: Date.now,
+      default: Date.now(),
     },
   },
   { timestamps: true }

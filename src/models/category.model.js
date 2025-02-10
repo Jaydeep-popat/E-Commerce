@@ -12,6 +12,7 @@ const categorySchema = new Mongoose.Schema(
     description: {
       type: String,
       trim: true,
+      max: 255
     },
     createdAt: {
       type: Date,

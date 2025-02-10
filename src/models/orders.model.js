@@ -19,6 +19,7 @@ const orderSchema = new Mongoose.Schema(
           type: Number,
           required: true,
           min: 1, // Ensures at least 1 item is ordered
+          max:10
         },
         price: {
           type: Number,
@@ -48,7 +49,7 @@ const orderSchema = new Mongoose.Schema(
     },
     createdAt: {
       type: Date,
-      default: Date.now,
+      default: Date.now(),
     },
   },
   { timestamps: true }

@@ -15,3 +15,4 @@ connectDB()
 .catch((err)=>{
     console.log("mongo not connected", err)
 })
+

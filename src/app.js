@@ -19,10 +19,17 @@ app.use(cookieParser());
 import userRouter from './router/user.routes.js';
 import productRouter from './router/product.routes.js';
 import categotyRouter from './router/category.router.js';
+import cartRouter from "./router/category.router.js";
+import orderRouter from "./router/orders.router.js";
+import reviewRouter from "./router/review.router.js";
+
 
 // all routes
 app.use("/api/users",userRouter);
 app.use("/api/products",productRouter);
-app.use("/api/categories",categotyRouter)
+app.use("/api/categories",categotyRouter);
+app.use("/api/carts",cartRouter);
+app.use("/api/reviews",reviewRouter);
+app.use("/api/orders",orderRouter);
 
 export { app };

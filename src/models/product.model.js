@@ -44,7 +44,7 @@ const productSchema = new Mongoose.Schema(
     ],
     createdAt: {
       type: Date,
-      default: Date.now,
+      default: Date.now(),
     },
   },
   { timestamps: true }

@@ -34,6 +34,7 @@ const registerUser = asyncHandler(async (req, res) => {
   const existedUser = await User.findOne({
     $or: [{ username }, { email }],
   });
+  
   if (existedUser) {
     throw new ApiError(409, "User with email or username already exists");
   }
@@ -239,6 +240,7 @@ const updateAccountDetails = asyncHandler(async (req, res) => {
       new apiResponse(200, updatedUser, "Account details updated successfully")
     );
 });
+
 
 export {
   registerUser,

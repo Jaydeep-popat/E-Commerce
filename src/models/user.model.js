@@ -27,13 +27,13 @@ const userSchema = new Mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, "pashovvsword is required"],
+      required: [true, "password is required"],
       minlength: 8,
       maxlength: 15,
     },
     role: {
       type: String,
-      enum: ["customer", "admin"], // Define user roles
+      enum: ["customer", "seller"], // Define user roles
       default: "customer",
     },
     refreshToken: {
@@ -41,7 +41,7 @@ const userSchema = new Mongoose.Schema(
     },
     createdAt: {
       type: Date,
-      default: Date.now,
+      default: Date.now(),
     },
   },
   { timestamps: true }
@@ -71,7 +71,6 @@ userSchema.methods.generateAccessToken = function () {
     }
   );
 };
-
 userSchema.methods.generateRefreshToken = function () {
   return jwt.sign(
     {

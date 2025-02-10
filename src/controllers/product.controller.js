@@ -122,6 +122,7 @@ const getAllProduct = asyncHandler(async (req, res) => {
 });
 
 const getProductById = asyncHandler(async (req, res) => {
+
   const { _id } = req.params;
   if (!_id) {
     throw new ApiError(409, "Please provide product _ID");
@@ -132,14 +133,40 @@ const getProductById = asyncHandler(async (req, res) => {
   if (!product) {
     throw new ApiError(404, "Product not found.");
   }
-
   return res
     .status(200)
     .json(new apiResponse(200, product, "Product fetched successfully."));
 });
 
+const getProductsByCategoryId = asyncHandler(async (req, res) => {
+
+  const category = req.params;
+
+  if(!category) {
+    throw new ApiError(409, "Please provide category ID");
+  }
+  const products = await Product.find({ category });
+  return res
+   .status(200)
+   .json(new apiResponse(200, products, "Products fetched successfully."));
+})
+
+
+const getProductsByOwner = asyncHandler(async (req, res) => {
+
+  const owner = req.params;
+
+  if(!owner){
+    throw new ApiError(409, "Please provide proper owner id");
+  }
+  const products = await Product.find({ owner });
+  return res
+  .status(200)
+  .json(new apiResponse(200, products, "Products fetched successfully."));
+})
+
 const deleteProduct = asyncHandler(async (req, res) => {
-  const { _id } = req.params;
+  const _id = req.params;
 
 
   if (!_id) {
@@ -149,7 +176,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
   const deletedProduct = await Product.findByIdAndDelete(_id);
 
   if (!deletedProduct) {
-    throw new ApiError(404, "Product not found.");
+    throw new ApiError(404, "Product not found.");    
   }
   return res
     .status(200)
@@ -158,34 +185,6 @@ const deleteProduct = asyncHandler(async (req, res) => {
     );
 });
 
-const getProductsByCategoryId = asyncHandler(async (req, res) => {
-
-  const { categoryId } = req.params;
-
-  if(!categoryId) {
-    throw new ApiError(409, "Please provide category ID");
-  }
-  const products = await Product.find({ categoryId });
-  return res
-   .status(200)
-   .json(new apiResponse(200, products, "Products fetched successfully."));
-})
-
-const getProductsByUserId = asyncHandler(async (req, res) => {
-
-  const { _id } = req.params;
-
-  
-  if(!_id){
-    throw new ApiError(409, "Please provide user ID");
-  }
-
-  const products = await Product.find({ _id });
-  return res
-  .status(200)
-  .json(new apiResponse(200, products, "Products fetched successfully."));
-})
-
 export { 
   addProduct, 
   updateProduct, 
@@ -193,5 +192,5 @@ export {
   getProductById,
   deleteProduct,
   getProductsByCategoryId,
-  getProductsByUserId
+  getProductsByOwner
 };
