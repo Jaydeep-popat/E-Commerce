@@ -9,6 +9,11 @@ const categorySchema = new Mongoose.Schema(
       trim: true,
       unique: true, // Each category name should be unique
     },
+    createdBy:{
+      type: Mongoose.Schema.Types.ObjectId,
+      ref: 'User', // References the User model
+      required: true,  // Each category belongs to a user
+    },
     description: {
       type: String,
       trim: true,

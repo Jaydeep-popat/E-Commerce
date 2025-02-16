@@ -33,7 +33,7 @@ const userSchema = new Mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["customer", "seller"], // Define user roles
+      enum: ["customer", "seller","admin"], // Define user roles
       default: "customer",
     },
     refreshToken: {

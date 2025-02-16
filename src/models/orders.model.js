@@ -15,6 +15,13 @@ const orderSchema = new Mongoose.Schema(
           ref: 'Product', // References the Product model
           required: true,
         },
+        name: {
+          type: String, // Stores product name at the time of ordering
+          required: true,
+        },
+        image: {
+          type: String, // Stores product image URL
+        },
         quantity: {
           type: Number,
           required: true,
@@ -47,10 +54,14 @@ const orderSchema = new Mongoose.Schema(
       enum: ['pending', 'paid', 'failed'],
       default: 'pending', // Default payment status
     },
-    createdAt: {
-      type: Date,
-      default: Date.now(),
+    paymentMethod: {
+      type: String,
+      enum: ['card', 'paypal', 'cash_on_delivery'],
+      required: true, // Specifies how the user paid
     },
+    expectedDelivery: {
+      type: Date, // Expected delivery date
+    }
   },
   { timestamps: true }
 );

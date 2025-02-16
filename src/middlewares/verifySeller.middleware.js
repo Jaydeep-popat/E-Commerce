@@ -4,10 +4,9 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 export const verifySeller = asyncHandler(async (req, _, next) => {
 
   if (!req.user) {
-    throw new ApiError(401, "Unauthorized request");
+    throw new ApiError(401, "please provide a user");
   }
-  console.log("req.user.role");
-
+  
   if (req.user.role !== "seller") {
     throw new ApiError(403, "Access denied. Only sellers can access this resource.");
   }

@@ -8,8 +8,8 @@ import {
     changeCurrentPassword,
     getCurrentUser,
     refreshAccessToken
-    }from '../controllers/user.controller.js'
-    
+} from '../controllers/user.controller.js'
+
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 
 
@@ -17,12 +17,12 @@ const router = new Router();
 
 router.route("/register").post(registerUser);
 router.route("/login").post(loginUser);
-router.route("/logout").post(verifyJWT,logoutUser);
-router.route("/getAll").get(getAlluser);
-router.route("/refreshAccessToken").post(refreshAccessToken);
-router.route("/getCurrentUser").get(verifyJWT,getCurrentUser);
-router.route("/changeCurrentPassword").post(verifyJWT,changeCurrentPassword)
-router.route("/updateAccountDetails").patch(verifyJWT,updateAccountDetails)
+router.route("/logout").post(verifyJWT, logoutUser);
+router.route("/getAll").get(verifyJWT,getAlluser);
+router.route("/refreshAccessToken").post(verifyJWT,refreshAccessToken);
+router.route("/getCurrentUser").get(verifyJWT, getCurrentUser);
+router.route("/changeCurrentPassword").post(verifyJWT, changeCurrentPassword)
+router.route("/updateAccountDetails").patch(verifyJWT, updateAccountDetails)
 
 
 export default router

@@ -151,7 +151,6 @@ const getProductsByCategoryId = asyncHandler(async (req, res) => {
    .json(new apiResponse(200, products, "Products fetched successfully."));
 })
 
-
 const getProductsByOwner = asyncHandler(async (req, res) => {
 
   const owner = req.params;

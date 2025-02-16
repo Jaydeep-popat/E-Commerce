@@ -1,13 +1,12 @@
-import  Mongoose  from 'mongoose';
+import Mongoose from 'mongoose';
 
 // Define the Cart schema
 const cartSchema = new Mongoose.Schema(
   {
     user: {
       type: Mongoose.Schema.Types.ObjectId,
-      ref: 'User', // References the User model (who owns the cart)
+      ref: 'User', // References the User model
       required: true,
-      unique: true, // A user can only have one cart
     },
     products: [
       {
@@ -20,22 +19,21 @@ const cartSchema = new Mongoose.Schema(
           type: Number,
           required: true,
           min: 1,
-          max:10
+          max: 10,
         },
+        price: { 
+          type: Number, 
+          required: true 
+        } // Stores the price when added to cart
       },
     ],
     totalAmount: {
       type: Number,
-      required: true,
-      min: 0, // Total amount should not be negative
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now(),
+      min: 0, 
     },
   },
   { timestamps: true }
 );
 
 // Export the model
-module.exports = Mongoose.model('Cart', cartSchema);
+export const Cart= Mongoose.model("Cart",cartSchema)

@@ -1,0 +1,16 @@
+import { ApiError } from "../utils/apiError.js";
+import { asyncHandler } from "../utils/asyncHandler.js"; 
+
+
+export const verifyAdmin = asyncHandler(async (req, _, next) => {
+
+    if(!req.user){
+        throw new ApiError(401,"please provide a user");
+    }
+
+    if (req.user.role !== "admin") {
+        throw new ApiError(403, "Access denied. Only Admin can access this resource.");
+    }
+
+    next();
+})
