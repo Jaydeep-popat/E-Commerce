@@ -4,11 +4,16 @@ import { apiResponse } from "../utils/apiResponse.js";
 import { Cart } from "../models/cart.model.js";
 import { Product } from "../models/product.model.js";
 
+
 const addToCart = asyncHandler(async (req, res) => {
 
-    const { userId, productId, quantity } = req.body;
+    const { productId, quantity } = req.body;
+    const userId = req.user.id;
     const parsedQuantity = Number(quantity); // Convert to number from string (default)
 
+    if(req.user.role!='customer'){
+        throw new ApiError(400, " only customer can add items to cart"); 
+    }
 
     //throw error if prorer infromance is not provided 
     if (!userId) {
@@ -74,10 +79,9 @@ const addToCart = asyncHandler(async (req, res) => {
             .json(new apiResponse(201, newCart, "Product added to cart"));
     }
 });
-
 const getCartItems = asyncHandler(async (req, res) => {
 
-    const { userId } = req.params;
+    const userId = req.user.id;
 
     if (!userId) {
         throw new ApiError(400, "User ID is required");
@@ -95,15 +99,16 @@ const getCartItems = asyncHandler(async (req, res) => {
         .status(200)
         .json(new apiResponse(200, cart, "Cart items fetched successfully"));
 
-})
-
+});
 const updateCartItem = asyncHandler(async (req, res) => {
-    const { userId, productId } = req.params;
+
+    const { productId } = req.params;
     const { quantity } = req.body;
+    const userId = req.user.id;
     const parsedQuantity = Number(quantity); // Convert to number
 
-    if (!userId || !productId || !parsedQuantity) {
-        throw new ApiError(400, "User ID, Product ID, and valid quantity are required");
+    if (!productId || !parsedQuantity) {
+        throw new ApiError(400, "Product ID and valid quantity are required");
     }
 
     if (parsedQuantity < 1 || parsedQuantity > 10) {
@@ -138,10 +143,11 @@ const updateCartItem = asyncHandler(async (req, res) => {
         .status(200)
         .json(new apiResponse(200, cart, "Cart item quantity updated successfully"));
 });
-
 const removeCartItem = asyncHandler(async (req, res) => {
-    const { userId, productId } = req.params;
-  
+
+    const { productId } = req.params;
+    const userId = req.user.id;
+
     if (!userId || !productId) {
       throw new ApiError(400, "User ID and Product ID are required");
     }
@@ -182,17 +188,17 @@ const removeCartItem = asyncHandler(async (req, res) => {
     return res
       .status(200)
       .json(new apiResponse(200, cart, "Cart item removed successfully"));
-  });
-  
-  const clearCart = asyncHandler(async (req, res) => {
-    const { userId } = req.params;
-  
-    if (!userId) {
-      throw new ApiError(400, "User ID is required");
+});
+const clearCart = asyncHandler(async (req, res) => {
+
+    const user = req.user.id;
+    console.log(user);
+    if (!user) {
+      throw new ApiError(400, "cannot find user");
     }
   
     // Find cart
-    const cart = await Cart.findOne({ user: userId });
+    const cart = await Cart.findOne({ user: user });
     if (!cart) {
       throw new ApiError(404, "Cart not found");
     }
@@ -206,10 +212,9 @@ const removeCartItem = asyncHandler(async (req, res) => {
       .status(200)
       .json(new apiResponse(200, cart, "Cart cleared successfully"));
   });
-
-  const getTotalPrice = asyncHandler(async (req, res) => {
-    const { userId } = req.params;
-  
+const getTotalPrice = asyncHandler(async (req, res) => {
+    
+    const userId = req.user.id;
     if (!userId) {
       throw new ApiError(400, "User ID is required");
     }
@@ -229,8 +234,7 @@ const removeCartItem = asyncHandler(async (req, res) => {
     return res
       .status(200)
       .json(new apiResponse(200, { totalPrice }, "Total cart price calculated successfully"));
-  });
-
+  }); 
 export {
     addToCart,
     getCartItems,

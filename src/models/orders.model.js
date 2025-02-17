@@ -67,4 +67,5 @@ const orderSchema = new Mongoose.Schema(
 );
 
 // Export the model
-module.exports = Mongoose.model('Order', orderSchema);
+// module.exports = Mongoose.model('Order', orderSchema);
+export const Order = Mongoose.model('Order',orderSchema) 

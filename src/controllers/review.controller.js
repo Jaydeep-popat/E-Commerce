@@ -69,12 +69,14 @@ const getProductReviews = asyncHandler(async (req, res) => {
 
 const getReviewById = asyncHandler(async (req, res) => {
 
-    const { reviewId } = req.params;
+    const { _id } = req.params;
+    
+    if(!_id){
+        throw new ApiError(404, "please provide _id");   
+    }
 
     // Find the review by ID
-    const review = await Review.findById(reviewId).populate("user", "fullName username");
-
-
+    const review = await Review.findById(_id).populate("user", "fullName username");
     if (!review) {
         throw new ApiError(404, "Review not found");
     }
@@ -84,12 +86,22 @@ const getReviewById = asyncHandler(async (req, res) => {
 })
 
 const updateReview = asyncHandler(async (req, res) => {
-    const { reviewId } = req.params;
+
+    const { _id } = req.params;
     const { rating, comment } = req.body;
     const userId = req.user.id; // Extracted from authentication middleware
 
+    if(!_id){
+        throw new ApiError(404, "please provide reviewId");
+    }
+    if(!rating){
+        throw new ApiError(404, "please provide reviewId");
+    }
+    if(!comment){
+        throw new ApiError(404, "please provide reviewId");
+    }
     // 1️⃣ Find the review by ID
-    const review = await Review.findById(reviewId);
+    const review = await Review.findById(_id);
     if (!review) {
         throw new ApiError(404, "Review not found");
     }
@@ -115,23 +127,22 @@ const updateReview = asyncHandler(async (req, res) => {
 
 })
 
+
 const deleteReview = asyncHandler(async (req, res) => {
-    const { reviewId } = req.params;
+    
+    const { _id } = req.params;
     const userId = req.user.id; // Extracted from authentication middleware
     const userRole = req.user.role; // Assuming role is available in req.user
 
     // 1️⃣ Find the review by ID
-    const review = await Review.findById(reviewId);
+    const review = await Review.findById(_id);
     if (!review) {
         throw new ApiError(404, "Review not found");
     }
-
     // 2️⃣ Check if the user is the review owner or an admin
     if (review.user.toString() !== userId && userRole !== "admin") {
         throw new ApiError(403, "You are not authorized to delete this review");
     }
-
-
     // 3️⃣ Delete the review
     await review.deleteOne();
 

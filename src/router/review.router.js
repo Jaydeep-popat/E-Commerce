@@ -23,19 +23,17 @@ router.route("/getProductReviews/:productId").get(
     getProductReviews    
 );
 
-
-//testing of this API is not yet implemented
-router.route("getReviewById/:reviewId").get(
+router.route("/getReviewById/:_id").get(
     verifyJWT,
     getReviewById
 )
 
-router.route("/updateReview/:reviewId").post(
+router.route("/updateReview/:_id").post(
     verifyJWT,
     updateReview
 );
 
-router.route("/deleteReview/:reviewId").post(
+router.route("/deleteReview/:_id").delete(
     verifyJWT,
     deleteReview
 )
